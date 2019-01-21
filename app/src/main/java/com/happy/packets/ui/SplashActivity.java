@@ -1,5 +1,6 @@
 package com.happy.packets.ui;
 
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -7,7 +8,10 @@ import android.view.View;
 
 import com.happy.libs.base.BaseActivity;
 import com.happy.libs.util.ActivityUtils;
+import com.happy.libs.util.Utils;
 import com.happy.packets.R;
+import com.happy.packets.helper.NotificationHelper;
+import com.happy.packets.helper.SoundPoolHelper;
 
 public class SplashActivity extends BaseActivity {
     Handler handler = new Handler();
@@ -29,7 +33,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void doBusiness() {
-
+        NotificationHelper.sendNotificationToAliPay();
         //从服务器获取各个APP对应的版本号和监听需要的文字内容
 
 

@@ -14,6 +14,8 @@ import com.happy.libs.util.SPUtils;
 import com.happy.libs.util.ToastUtils;
 import com.happy.packets.HappyConstants;
 import com.happy.packets.R;
+import com.happy.packets.helper.AccessibilityHelper;
+import com.happy.packets.helper.NotificationHelper;
 import com.happy.packets.widget.SuperTextView;
 
 public class SettingActivity extends BaseActivity implements SuperTextView.OnSuperTextViewClickListener {
@@ -63,7 +65,6 @@ public class SettingActivity extends BaseActivity implements SuperTextView.OnSup
         switch_filter = findViewById(R.id.switch_filter);
 
         updateStatus();
-
         setClickListener();
 
     }
@@ -74,6 +75,15 @@ public class SettingActivity extends BaseActivity implements SuperTextView.OnSup
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         SPUtils.getInstance().put(HappyConstants.SP_KEY_NOTIFICATION, isChecked);
+                        if (isChecked) {
+                            if (AccessibilityHelper.isServiceEnabled()) {
+                                NotificationHelper.sendNotificationToMainActivity();
+                            } else {
+                                NotificationHelper.sendNotificationToOpenAccessibilittyService();
+                            }
+                        } else {
+                            NotificationHelper.closeNotification();
+                        }
                     }
                 });
         switch_alert.setOnSuperTextViewClickListener(this)

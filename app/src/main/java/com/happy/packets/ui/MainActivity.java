@@ -3,6 +3,8 @@ package com.happy.packets.ui;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -17,8 +19,12 @@ import com.happy.libs.util.ActivityUtils;
 import com.happy.libs.util.AppUtils;
 import com.happy.libs.util.SPUtils;
 import com.happy.libs.util.ToastUtils;
+import com.happy.libs.util.Utils;
 import com.happy.packets.HappyConstants;
 import com.happy.packets.R;
+import com.happy.packets.helper.AccessibilityHelper;
+import com.happy.packets.helper.NotificationHelper;
+import com.happy.packets.helper.SoundPoolHelper;
 import com.happy.packets.widget.SuperTextView;
 
 import java.text.DecimalFormat;
@@ -30,8 +36,6 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
     private LinearLayout ll_DingDing;
     private TextView tv_WeChat_money;
     private TextView tv_DingDing_money;
-
-    private AccessibilityManager accessibilityManager;
 
     @Override
     public void initData(@NonNull Bundle bundle) {
@@ -57,8 +61,7 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
         findViewById(R.id.ll_AliPay).setOnClickListener(this);
         findViewById(R.id.ll_Setting).setOnClickListener(this);
         findViewById(R.id.ll_More).setOnClickListener(this);
-        accessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
-        accessibilityManager.addAccessibilityStateChangeListener(this);
+        AccessibilityHelper.getAccessibilityManager().addAccessibilityStateChangeListener(this);
     }
 
     @Override
@@ -112,8 +115,8 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
     private void openAutoClickService() {
         //首先判断有没有安装微信、钉钉、QQ、企业微信；
         if (AppUtils.isAppInstalled(PackagesConstants.WECHAT) ||
-                AppUtils.isAppInstalled(PackagesConstants.DINGDING)||
-                AppUtils.isAppInstalled(PackagesConstants.QQ)||
+                AppUtils.isAppInstalled(PackagesConstants.DINGDING) ||
+                AppUtils.isAppInstalled(PackagesConstants.QQ) ||
                 AppUtils.isAppInstalled(PackagesConstants.WORKWEIXIN)) {
             //如果安装了其中的某一项，就去打开服务；
             Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
@@ -129,7 +132,10 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
      * 更新服务状态
      */
     private void updateServiceStatus() {
-        if (isServiceEnabled()) {
+        if (AccessibilityHelper.isServiceEnabled()) {
+            if (SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_NOTIFICATION)) {
+                NotificationHelper.sendNotificationToMainActivity();
+            }
             ll_state_off.setVisibility(View.GONE);
             if (AppUtils.isAppInstalled(PackagesConstants.WECHAT)) {
                 ll_WeChat.setVisibility(View.VISIBLE);
@@ -142,6 +148,9 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
                 ll_DingDing.setVisibility(View.GONE);
             }
         } else {
+            if (SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_NOTIFICATION)) {
+                NotificationHelper.sendNotificationToOpenAccessibilittyService();
+            }
             ll_state_off.setVisibility(View.VISIBLE);
             ll_WeChat.setVisibility(View.GONE);
             ll_DingDing.setVisibility(View.GONE);
@@ -157,26 +166,6 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
         tv_DingDing_money.setText("共抢得 " + new DecimalFormat("#0.00").format(210.00) + " 元");
     }
 
-
-    /**
-     * 获取 RedPacketService 是否启用状态
-     *
-     * @return
-     */
-    private boolean isServiceEnabled() {
-
-        List<AccessibilityServiceInfo> accessibilityServices =
-                accessibilityManager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
-        for (AccessibilityServiceInfo info : accessibilityServices) {
-            if (info.getId().equals(getPackageName() + "/.services.RedPacketService")) {
-                SPUtils.getInstance().put(HappyConstants.SP_SERVICE_STATE, true);
-                return true;
-            }
-        }
-        SPUtils.getInstance().put(HappyConstants.SP_SERVICE_STATE, false);
-        return false;
-    }
-
     @Override
     public void onAccessibilityStateChanged(boolean enabled) {
         updateServiceStatus();
@@ -185,7 +174,7 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
     @Override
     protected void onDestroy() {
         //移除监听服务
-        accessibilityManager.removeAccessibilityStateChangeListener(this);
+        AccessibilityHelper.getAccessibilityManager().removeAccessibilityStateChangeListener(this);
         super.onDestroy();
     }
 

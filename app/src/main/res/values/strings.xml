@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">红包猎手</string>
-    <string name="service_name">❤自动抢红包❤</string>
-    <string name="app_description">❤自动抢红包❤</string>
+    <string name="service_name">❤红包猎手❤请开启辅助功能 ☞</string>
+    <string name="app_description">请点击右上角的开启按钮，\n然后在弹出的对话框中点击【确定】按钮。\n\n开启后才能实现自动抢红包功能，再也不用担心因抢不到红包而感觉错失几百万了。\n\n提示：\n打开系统服务时，系统会弹出例行的隐私警告。\n我们承诺不会进行侵害用户利益的行为，请放心开启使用。\n更多帮助请前往APP内查看。\n\n\n❤自动抢红包❤福利：\n打开APP即可领取【支付宝】红包\n人人可领！天天可领！！</string>
 
 
 </resources>
