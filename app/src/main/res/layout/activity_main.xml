@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/iv_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_boy" />
+
+        <LinearLayout
+            android:id="@+id/ll_WeChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/fab_margin"
+            android:paddingTop="@dimen/fab_margin"
+            android:paddingRight="@dimen/fab_margin"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="微信红包"
+                android:textColor="@android:color/white"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/tv_WeChat_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="共抢得 120.08 元"
+
+                android:textColor="@android:color/white"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_DingDing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/fab_margin"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="钉钉红包"
+                android:textColor="@android:color/white"
+                android:textSize="24dp" />
+
+            <TextView
+                android:id="@+id/tv_DingDing_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="共抢得 390.08 元"
+                android:textColor="@android:color/white"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+        <com.happy.packets.widget.SuperTextView
+            android:id="@+id/ll_state_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:padding="@dimen/fab_margin"
+            android:visibility="gone"
+            app:sCenterTextColor="@android:color/white"
+            app:sCenterTextSize="16dp"
+            app:sCenterTextString="点我打开自动抢红包服务"
+            app:sShapeCornersRadius="10dp"
+            app:sShapeSelectorNormalColor="@color/color_ffc461"
+            app:sShapeSelectorPressedColor="@color/color_f9923a"
+            app:sUseShape="true">
+
+        </com.happy.packets.widget.SuperTextView>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="320dp"
+        android:background="@mipmap/bg_snow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/fab_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_line"
+        app:showDividers="middle|end">
+
+        <com.happy.packets.widget.SuperTextView
+            android:id="@+id/ll_Lucky"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:sLeftTextString="今日运势"
+            app:sRightIconRes="@mipmap/arrow_right_red"
+            app:sShapeCornersRadius="5dp"
+            app:sShapeSelectorPressedColor="@color/common_pressed"
+            app:sShapeStrokeColor="@color/color_e46c62"
+            app:sShapeStrokeWidth="1dp"
+            app:sUseShape="true">
+
+        </com.happy.packets.widget.SuperTextView>
+
+        <com.happy.packets.widget.SuperTextView
+            android:id="@+id/ll_History"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/fab_margin"
+            app:sLeftTextString="红包记录"
+            app:sRightIconRes="@mipmap/arrow_right_red"
+            app:sShapeCornersRadius="5dp"
+            app:sShapeSelectorPressedColor="@color/common_pressed"
+            app:sShapeStrokeColor="@color/color_e46c62"
+            app:sShapeStrokeWidth="1dp"
+            app:sUseShape="true">
+
+        </com.happy.packets.widget.SuperTextView>
+
+
+        <com.happy.packets.widget.SuperTextView
+            android:id="@+id/ll_Setting"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/fab_margin"
+            app:sLeftTextString="设置中心"
+            app:sRightIconRes="@mipmap/arrow_right_red"
+            app:sShapeCornersRadius="5dp"
+            app:sShapeSelectorPressedColor="@color/common_pressed"
+            app:sShapeStrokeColor="@color/color_e46c62"
+            app:sShapeStrokeWidth="1dp"
+            app:sUseShape="true">
+
+        </com.happy.packets.widget.SuperTextView>
+
+
+        <com.happy.packets.widget.SuperTextView
+            android:id="@+id/ll_More"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/fab_margin"
+            app:sLeftTextString="更多"
+            app:sRightIconRes="@mipmap/arrow_right_red"
+            app:sShapeCornersRadius="5dp"
+            app:sShapeSelectorPressedColor="@color/common_pressed"
+            app:sShapeStrokeColor="@color/color_e46c62"
+            app:sShapeStrokeWidth="1dp"
+            app:sUseShape="true">
+
+        </com.happy.packets.widget.SuperTextView>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <com.happy.packets.widget.SuperTextView
+        android:id="@+id/ll_AliPay"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_content"
+        app:sBackgroundDrawableRes="@drawable/btn_selector"
+        app:sLeftBottomTextColor="@color/color_3dabf9"
+        app:sLeftBottomTextSize="15sp"
+        app:sLeftBottomTextString="人人可领！天天可领！"
+        app:sLeftIconRes="@mipmap/ic_alipay"
+        app:sLeftTextColor="@android:color/black"
+        app:sLeftTextSize="20sp"
+        app:sLeftTextString="支付宝红包"
+        app:sLeftTvDrawableHeight="15dp"
+        app:sLeftTvDrawableWidth="30dp"
+        app:sLeftViewGravity="left_center"
+        app:sRightTextString="点击领取">
+
+    </com.happy.packets.widget.SuperTextView>
+</android.support.constraint.ConstraintLayout>

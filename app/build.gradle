@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.android["COMPILE_SDK_VERSION"]
+
+    defaultConfig {
+        applicationId "com.happy.packets"
+        minSdkVersion rootProject.ext.android["MIN_SDK_VERSION"]
+        targetSdkVersion rootProject.ext.android["TARGET_SDK_VERSION"]
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+    }
+    buildTypes {
+        debug {
+            minifyEnabled rootProject.ext.MINIFY_DISABLED
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            shrinkResources true
+            zipAlignEnabled true
+            minifyEnabled rootProject.ext.MINIFY_ENABLED
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["constraint-layout"]
+    implementation rootProject.ext.dependencies["recyclerview-v7"]
+    implementation rootProject.ext.dependencies["litepal"]
+    implementation project(':BaseLibs')
+}
