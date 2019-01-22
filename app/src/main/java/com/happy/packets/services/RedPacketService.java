@@ -8,6 +8,7 @@ import com.happy.libs.util.SPUtils;
 import com.happy.libs.util.ToastUtils;
 import com.happy.packets.HappyConstants;
 import com.happy.packets.helper.AccessibilityHelper;
+import com.happy.packets.helper.ConfigHelper;
 import com.happy.packets.helper.NotificationHelper;
 
 public class RedPacketService extends AccessibilityService {
@@ -20,7 +21,7 @@ public class RedPacketService extends AccessibilityService {
         super.onServiceConnected();
 
         ToastUtils.showShort("❤自动抢红包❤已打开");
-        if (SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_NOTIFICATION)) {
+        if (ConfigHelper.getNotification()) {
             NotificationHelper.sendNotificationToMainActivity();
         }
         SPUtils.getInstance().put(HappyConstants.SP_SERVICE_STATE, true);
@@ -42,7 +43,7 @@ public class RedPacketService extends AccessibilityService {
                 break;
             //窗口状态发生变化的时候
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
-                AccessibilityHelper.watchWindow(accessibilityEvent);
+                AccessibilityHelper.watchWindow(RedPacketService.this,accessibilityEvent);
                 break;
             //窗口内容发生变化的时候
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
@@ -57,7 +58,7 @@ public class RedPacketService extends AccessibilityService {
     @Override
     public void onInterrupt() {
         ToastUtils.showShort("❤自动抢红包❤已中断");
-        if (SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_NOTIFICATION)) {
+        if (ConfigHelper.getNotification()) {
             NotificationHelper.sendNotificationToOpenAccessibilittyService();
         }
         SPUtils.getInstance().put(HappyConstants.SP_SERVICE_STATE, false);
@@ -67,7 +68,7 @@ public class RedPacketService extends AccessibilityService {
     public void onDestroy() {
         super.onDestroy();
         ToastUtils.showShort("❤自动抢红包❤已停止");
-        if (SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_NOTIFICATION)) {
+        if (ConfigHelper.getNotification()) {
             NotificationHelper.sendNotificationToOpenAccessibilittyService();
         }
         SPUtils.getInstance().put(HappyConstants.SP_SERVICE_STATE, false);

@@ -15,6 +15,7 @@ import com.happy.libs.util.ToastUtils;
 import com.happy.packets.HappyConstants;
 import com.happy.packets.R;
 import com.happy.packets.helper.AccessibilityHelper;
+import com.happy.packets.helper.ConfigHelper;
 import com.happy.packets.helper.NotificationHelper;
 import com.happy.packets.widget.SuperTextView;
 
@@ -236,19 +237,19 @@ public class SettingActivity extends BaseActivity implements SuperTextView.OnSup
      * 更新初始化页面状态
      */
     private void updateStatus() {
-        switch_notification.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_NOTIFICATION, false));
-        switch_alert.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_ALERT, true));
-        switch_lock.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_LOCK, false));
-        switch_WeiXin.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_WEIXIN, AppUtils.isAppInstalled(PackagesConstants.WECHAT)));
-        switch_DingDing.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_DINGDING, false));
-        switch_QQ.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_QQ, false));
-        switch_WorkWeiXin.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_WORKWEIXIN, false));
-        switch_sound.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_SOUND, true));
-        switch_back.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_BACK, false));
-        switch_self.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_SELF, true));
-        switch_delay.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_DELAY, false));
-        switch_reply.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_REPLY, false));
-        switch_filter.setSwitchIsChecked(SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_FILTER, false));
+        switch_notification.setSwitchIsChecked(ConfigHelper.getNotification());
+        switch_alert.setSwitchIsChecked(ConfigHelper.getAlert());
+        switch_lock.setSwitchIsChecked(ConfigHelper.getLock());
+        switch_WeiXin.setSwitchIsChecked(ConfigHelper.getWeiXin());
+        switch_DingDing.setSwitchIsChecked(ConfigHelper.getDingDing());
+        switch_QQ.setSwitchIsChecked(ConfigHelper.getQQ());
+        switch_WorkWeiXin.setSwitchIsChecked(ConfigHelper.getWorkWeiXin());
+        switch_sound.setSwitchIsChecked(ConfigHelper.getSound());
+        switch_back.setSwitchIsChecked(ConfigHelper.getBack());
+        switch_self.setSwitchIsChecked(ConfigHelper.getSelf());
+        switch_delay.setSwitchIsChecked(ConfigHelper.getDelay());
+        switch_reply.setSwitchIsChecked(ConfigHelper.getReply());
+        switch_filter.setSwitchIsChecked(ConfigHelper.getFilter());
         ll_content.setVisibility(View.VISIBLE);
     }
 

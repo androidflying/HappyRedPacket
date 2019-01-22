@@ -20,8 +20,12 @@ public abstract class BaseApplication extends MultiDexApplication {
         if (ProcessUtils.isMainProcess()) {
             initLog();
             initCrash();
+            childCreate();
         }
     }
+
+    protected abstract void childCreate();
+
 
     @Override
     protected void attachBaseContext(Context base) {

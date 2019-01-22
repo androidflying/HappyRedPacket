@@ -1,10 +1,6 @@
 package com.happy.packets.ui;
 
-import android.accessibilityservice.AccessibilityServiceInfo;
-import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -17,15 +13,16 @@ import com.happy.libs.base.BaseActivity;
 import com.happy.libs.constant.PackagesConstants;
 import com.happy.libs.util.ActivityUtils;
 import com.happy.libs.util.AppUtils;
-import com.happy.libs.util.SPUtils;
 import com.happy.libs.util.ToastUtils;
-import com.happy.libs.util.Utils;
 import com.happy.packets.HappyConstants;
 import com.happy.packets.R;
+import com.happy.packets.entity.RedPackage;
 import com.happy.packets.helper.AccessibilityHelper;
+import com.happy.packets.helper.ConfigHelper;
 import com.happy.packets.helper.NotificationHelper;
-import com.happy.packets.helper.SoundPoolHelper;
 import com.happy.packets.widget.SuperTextView;
+
+import org.litepal.LitePal;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -74,7 +71,7 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
     protected void onResume() {
         super.onResume();
         updateServiceStatus();
-
+        updateMoneyStatus();
     }
 
 
@@ -133,7 +130,7 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
      */
     private void updateServiceStatus() {
         if (AccessibilityHelper.isServiceEnabled()) {
-            if (SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_NOTIFICATION)) {
+            if (ConfigHelper.getNotification()) {
                 NotificationHelper.sendNotificationToMainActivity();
             }
             ll_state_off.setVisibility(View.GONE);
@@ -148,7 +145,7 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
                 ll_DingDing.setVisibility(View.GONE);
             }
         } else {
-            if (SPUtils.getInstance().getBoolean(HappyConstants.SP_KEY_NOTIFICATION)) {
+            if (ConfigHelper.getNotification()) {
                 NotificationHelper.sendNotificationToOpenAccessibilittyService();
             }
             ll_state_off.setVisibility(View.VISIBLE);
@@ -162,8 +159,35 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
      * 更新收到的红包金额
      */
     private void updateMoneyStatus() {
-        tv_WeChat_money.setText("共抢得 " + new DecimalFormat("#0.00").format(200.00) + " 元");
-        tv_DingDing_money.setText("共抢得 " + new DecimalFormat("#0.00").format(210.00) + " 元");
+        List<RedPackage> allRedPackage = LitePal.findAll(RedPackage.class);
+        float total_wx = 0.00f;
+        float total_dd = 0.00f;
+        float total_qq = 0.00f;
+        float total_ww = 0.00f;
+        float total_o = 0.00f;
+
+      total_o =  LitePal.sum(RedPackage.class,"money",float.class);
+        for (RedPackage redPackage : allRedPackage) {
+            switch (redPackage.getChannel()) {
+                case HappyConstants.TAG_WEIXIN:
+                    total_wx+=redPackage.getMoney();
+                    break;
+                case HappyConstants.TAG_DINGDING:
+                    total_dd+=redPackage.getMoney();
+                    break;
+                case HappyConstants.TAG_QQ:
+                    total_qq+=redPackage.getMoney();
+                    break;
+                case HappyConstants.TAG_WORK_WEIXIN:
+                    total_ww+=redPackage.getMoney();
+                    break;
+                default:
+                    total_o+=redPackage.getMoney();
+            }
+        }
+
+        tv_WeChat_money.setText("共抢得 " + new DecimalFormat("#0.00").format(total_o) + " 元");
+        tv_DingDing_money.setText("共抢得 " + new DecimalFormat("#0.00").format(total_dd) + " 元");
     }
 
     @Override

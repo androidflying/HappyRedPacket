@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<FrameLayout
+    android:id="@+id/iv_channel"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" >
+    <ImageView
+        android:id="@+id/iv_dingding"
+        android:layout_width="48dp"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_height="48dp"
+        android:src="@mipmap/logo_dingding"
+        />
+    <ImageView
+        android:id="@+id/iv_weixin"
+        android:layout_width="48dp"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_height="48dp"
+        android:src="@mipmap/logo_weixin"
+        />
+    <ImageView
+        android:id="@+id/iv_qq"
+        android:layout_width="48dp"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_height="48dp"
+        android:src="@mipmap/logo_qq"
+        />
+    <ImageView
+        android:id="@+id/iv_work"
+        android:layout_width="48dp"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_height="48dp"
+        android:src="@mipmap/logo_work"
+        />
+</FrameLayout>
+
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="来自：聪慧"
+        android:textColor="@color/color_fff6f1"
+        android:textSize="14dp"
+        app:layout_constraintStart_toEndOf="@+id/iv_channel"
+        app:layout_constraintTop_toTopOf="@+id/iv_channel" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="2019-01-21 19:20:32"
+        android:textColor="@color/color_e8e8e8"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_channel"
+        app:layout_constraintStart_toEndOf="@+id/iv_channel"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+    <TextView
+        android:id="@+id/tv_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="获得 0.01 元"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_channel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_channel" />
+</android.support.constraint.ConstraintLayout>

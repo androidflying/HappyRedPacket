@@ -1,22 +1,31 @@
 package com.happy.packets.entity;
 
-public class RedPackage {
-    //红包被标记的时间
-    private long time;
-    //红包的发送者
+import org.litepal.crud.LitePalSupport;
+
+public class RedPackage extends LitePalSupport {
+    /**
+     * 红包被标记的时间
+     */
+    private String time;
+    /**
+     * 红包的发送者
+     */
     private String sender;
-    //红包的描述
-    private String content;
-    //收到的红包金额
-    private String money;
-    //红包的渠道
+    /**
+     * 收到的红包金额
+     */
+    private float money;
+    /**
+     * 红包的渠道
+     */
     private String channel;
 
-    public long getTime() {
+
+    public String getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -28,19 +37,11 @@ public class RedPackage {
         this.sender = sender;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getMoney() {
+    public float getMoney() {
         return money;
     }
 
-    public void setMoney(String money) {
+    public void setMoney(float money) {
         this.money = money;
     }
 

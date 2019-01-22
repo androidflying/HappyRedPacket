@@ -1,6 +1,13 @@
 package com.happy.packets;
 
 public class HappyConstants {
+
+
+    public static final String TAG_WEIXIN = "wx";
+    public static final String TAG_DINGDING = "dd";
+    public static final String TAG_QQ = "qq";
+    public static final String TAG_WORK_WEIXIN = "ww";
+
     public static final String URL_ALIPAY = "http://www.tianfeifei.com/redpacket/alipay.html";
     public static final String URL_HELP = "http://www.tianfeifei.com/redpacket/help.html";
     public static final String URL_RULES = "http://www.tianfeifei.com/redpacket/rules.html";
@@ -20,4 +27,9 @@ public class HappyConstants {
     public static final String SP_KEY_DELAY = "sp_key_delay";
     public static final String SP_KEY_REPLY = "sp_key_reply";
     public static final String SP_KEY_FILTER = "sp_key_filter";
+
+
+    public static final String WEIXIN_LAUNCHER_UI = "com.tencent.mm.ui.LauncherUI";
+    public static final String WEIXIN_LUCKY_UI = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyNotHookReceiveUI";
+    public static final String WEIXIN_LUCKY_DETAIL_UI = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI";
 }

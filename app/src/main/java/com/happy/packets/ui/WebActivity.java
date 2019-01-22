@@ -1,14 +1,11 @@
 package com.happy.packets.ui;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.happy.libs.base.BaseActivity;
@@ -26,8 +23,6 @@ public class WebActivity extends BaseActivity implements AdvancedWebView.Listene
     private TextView tv_title;
     private String url;
     private String title;
-
-    ProgressDialog progressDialog;
 
     @Override
     public void initData(@NonNull Bundle bundle) {
@@ -101,13 +96,13 @@ public class WebActivity extends BaseActivity implements AdvancedWebView.Listene
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
         mWebView.setVisibility(View.INVISIBLE);
-        showLoading();
+        DialogHelper.showLoading();
     }
 
     @Override
     public void onPageFinished(String url) {
         mWebView.setVisibility(View.VISIBLE);
-        missLoading();
+        DialogHelper.missLoading();
     }
 
     @Override
@@ -125,25 +120,5 @@ public class WebActivity extends BaseActivity implements AdvancedWebView.Listene
         ToastUtils.showShort("onExternalPageRequest(url = " + url + ")");
     }
 
-    private void showLoading() {
-        showLoading("加载中...");
-    }
 
-    private void showLoading(String msg) {
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        }
-        progressDialog.setMessage(msg);
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-    }
-
-    private void missLoading() {
-        if (progressDialog != null) {
-            if (progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
-        }
-    }
 }
