@@ -3,7 +3,6 @@ package com.happy.packets.services;
 import android.accessibilityservice.AccessibilityService;
 import android.view.accessibility.AccessibilityEvent;
 
-import com.happy.libs.util.LogUtils;
 import com.happy.libs.util.SPUtils;
 import com.happy.libs.util.ToastUtils;
 import com.happy.packets.HappyConstants;
@@ -43,11 +42,10 @@ public class RedPacketService extends AccessibilityService {
                 break;
             //窗口状态发生变化的时候
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
-                AccessibilityHelper.watchWindow(RedPacketService.this,accessibilityEvent);
+                SPUtils.getInstance().put(HappyConstants.SP_CURRENT_ACTIVITY, accessibilityEvent.getClassName().toString());
                 break;
-            //窗口内容发生变化的时候
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
-                AccessibilityHelper.watchContent(accessibilityEvent);
+                AccessibilityHelper.watchWindow(RedPacketService.this, accessibilityEvent);
                 break;
         }
     }

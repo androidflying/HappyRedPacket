@@ -13,6 +13,10 @@ public class HappyConstants {
     public static final String URL_RULES = "http://www.tianfeifei.com/redpacket/rules.html";
 
     public static final String SP_SERVICE_STATE = "sp_service_state";
+    public static final String SP_CURRENT_ACTIVITY = "sp_current_activity";
+    public static final String SP_HISTORY_STATE = "sp_history_state";
+    public static final String SP_DELAY_TIME = "sp_delay_time";
+    public static final String SP_FILTER_CONTENTS = "sp_filter_contents";
 
     public static final String SP_KEY_NOTIFICATION = "sp_key_notification";
     public static final String SP_KEY_ALERT = "sp_key_alert";
@@ -28,6 +32,10 @@ public class HappyConstants {
     public static final String SP_KEY_REPLY = "sp_key_reply";
     public static final String SP_KEY_FILTER = "sp_key_filter";
 
+    public static final String LUCKY_TAG_WEIXIN = "[微信红包]";
+    public static final String LUCKY_TAG_DINGDING = "[钉钉]";
+    public static final String LUCKY_TAG_QQ = "[QQ红包]";
+    public static final String LUCKY_TAG_WORK_WEIXIN = "[企业微信]";
 
     public static final String WEIXIN_LAUNCHER_UI = "com.tencent.mm.ui.LauncherUI";
     public static final String WEIXIN_LUCKY_UI = "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyNotHookReceiveUI";

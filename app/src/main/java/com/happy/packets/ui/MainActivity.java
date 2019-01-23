@@ -166,7 +166,6 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
         float total_ww = 0.00f;
         float total_o = 0.00f;
 
-      total_o =  LitePal.sum(RedPackage.class,"money",float.class);
         for (RedPackage redPackage : allRedPackage) {
             switch (redPackage.getChannel()) {
                 case HappyConstants.TAG_WEIXIN:
@@ -186,7 +185,7 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
             }
         }
 
-        tv_WeChat_money.setText("共抢得 " + new DecimalFormat("#0.00").format(total_o) + " 元");
+        tv_WeChat_money.setText("共抢得 " + new DecimalFormat("#0.00").format(total_wx) + " 元");
         tv_DingDing_money.setText("共抢得 " + new DecimalFormat("#0.00").format(total_dd) + " 元");
     }
 

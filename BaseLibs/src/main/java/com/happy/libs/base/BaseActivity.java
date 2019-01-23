@@ -1,5 +1,6 @@
 package com.happy.libs.base;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -19,7 +20,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
      * 上次点击时间
      */
     private long lastClick = 0;
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,5 +65,28 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
             return false;
         }
         return true;
+    }
+
+
+    public void showLoading() {
+        showLoading("加载中...");
+    }
+
+    public void showLoading(String msg) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        }
+        progressDialog.setMessage(msg);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
+    public void missLoading() {
+        if (progressDialog != null) {
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+        }
     }
 }

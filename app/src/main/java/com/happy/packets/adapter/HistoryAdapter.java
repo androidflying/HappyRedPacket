@@ -1,6 +1,5 @@
 package com.happy.packets.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,29 +39,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
         switch (redPackages.get(position).getChannel()) {
             case HappyConstants.TAG_WEIXIN:
-                holder.iv_weixin.setVisibility(View.VISIBLE);
-                holder.iv_dingding.setVisibility(View.GONE);
-                holder.iv_qq.setVisibility(View.GONE);
-                holder.iv_work.setVisibility(View.GONE);
-
+               holder.iv_channel.setImageResource(R.mipmap.logo_weixin);
                 break;
             case HappyConstants.TAG_DINGDING:
-                holder.iv_weixin.setVisibility(View.GONE);
-                holder.iv_dingding.setVisibility(View.VISIBLE);
-                holder.iv_qq.setVisibility(View.GONE);
-                holder.iv_work.setVisibility(View.GONE);
+                holder.iv_channel.setImageResource(R.mipmap.logo_dingding);
                 break;
             case HappyConstants.TAG_QQ:
-                holder.iv_weixin.setVisibility(View.GONE);
-                holder.iv_dingding.setVisibility(View.GONE);
-                holder.iv_qq.setVisibility(View.VISIBLE);
-                holder.iv_work.setVisibility(View.GONE);
+                holder.iv_channel.setImageResource(R.mipmap.logo_qq);
                 break;
             case HappyConstants.TAG_WORK_WEIXIN:
-                holder.iv_weixin.setVisibility(View.GONE);
-                holder.iv_dingding.setVisibility(View.GONE);
-                holder.iv_qq.setVisibility(View.GONE);
-                holder.iv_work.setVisibility(View.VISIBLE);
+                holder.iv_channel.setImageResource(R.mipmap.logo_work);
                 break;
         }
     }
@@ -77,21 +63,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         TextView tv_sender;
         TextView tv_time;
         TextView tv_money;
-        ImageView iv_weixin;
-        ImageView iv_dingding;
-        ImageView iv_qq;
-        ImageView iv_work;
+        ImageView iv_channel;
 
         public HistoryViewHodler(View view) {
             super(view);
             tv_sender = view.findViewById(R.id.tv_name);
             tv_time = view.findViewById(R.id.tv_time);
             tv_money = view.findViewById(R.id.tv_money);
-            iv_weixin = view.findViewById(R.id.iv_weixin);
-            iv_dingding = view.findViewById(R.id.iv_dingding);
-            iv_qq = view.findViewById(R.id.iv_qq);
-            iv_work = view.findViewById(R.id.iv_work);
-
+            iv_channel = view.findViewById(R.id.iv_channel);
         }
     }
 }

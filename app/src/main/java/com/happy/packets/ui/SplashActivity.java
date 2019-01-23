@@ -1,6 +1,5 @@
 package com.happy.packets.ui;
 
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -8,10 +7,8 @@ import android.view.View;
 
 import com.happy.libs.base.BaseActivity;
 import com.happy.libs.util.ActivityUtils;
-import com.happy.libs.util.Utils;
 import com.happy.packets.R;
 import com.happy.packets.helper.NotificationHelper;
-import com.happy.packets.helper.SoundPoolHelper;
 
 public class SplashActivity extends BaseActivity {
     Handler handler = new Handler();

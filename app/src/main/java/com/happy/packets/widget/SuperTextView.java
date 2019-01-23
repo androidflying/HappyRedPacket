@@ -775,6 +775,7 @@ public class SuperTextView extends RelativeLayout {
         mSwitchParams.setMargins(0, 0, rightSwitchMarginRight, 0);
         mSwitch.setId(R.id.sRightSwitchId);
         mSwitch.setLayoutParams(mSwitchParams);
+        mSwitch.setClickable(false);
 
         mSwitch.setChecked(switchIsChecked);
         if (!TextUtils.isEmpty(mTextOff)) {

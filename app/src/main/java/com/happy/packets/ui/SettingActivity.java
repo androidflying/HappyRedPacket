@@ -1,7 +1,9 @@
 package com.happy.packets.ui;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -36,6 +38,8 @@ public class SettingActivity extends BaseActivity implements SuperTextView.OnSup
     private SuperTextView switch_delay;
     private SuperTextView switch_reply;
     private SuperTextView switch_filter;
+
+    private AlertDialog alertDialog;
 
     @Override
     public void initData(@NonNull Bundle bundle) {
@@ -210,7 +214,16 @@ public class SettingActivity extends BaseActivity implements SuperTextView.OnSup
                         SPUtils.getInstance().put(HappyConstants.SP_KEY_SELF, isChecked);
                     }
                 });
-        switch_delay.setOnSuperTextViewClickListener(this)
+        switch_delay.setOnSuperTextViewClickListener(new SuperTextView.OnSuperTextViewClickListener() {
+            @Override
+            public void onClickListener(SuperTextView superTextView) {
+                if (superTextView.getSwitchIsChecked()) {
+                    superTextView.setSwitchIsChecked(false);
+                } else {
+                    showDelayChoice(superTextView);
+                }
+            }
+        })
                 .setSwitchCheckedChangeListener(new SuperTextView.OnSwitchCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -232,6 +245,7 @@ public class SettingActivity extends BaseActivity implements SuperTextView.OnSup
                     }
                 });
     }
+
 
     /**
      * 更新初始化页面状态
@@ -273,4 +287,29 @@ public class SettingActivity extends BaseActivity implements SuperTextView.OnSup
     public void onClickListener(SuperTextView superTextView) {
         superTextView.setSwitchIsChecked(!superTextView.getSwitchIsChecked());
     }
+
+
+    /**
+     * 延时选择框
+     *
+     * @param superTextView
+     */
+    private void showDelayChoice(final SuperTextView superTextView) {
+        final String[] items = {"1s", "2s", "3s", "4s", "5s"};
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setTitle("选择延长的时间");
+        alertBuilder.setSingleChoiceItems(items, SPUtils.getInstance().getInt(HappyConstants.SP_DELAY_TIME), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                superTextView.setSwitchIsChecked(true);
+                SPUtils.getInstance().put(HappyConstants.SP_DELAY_TIME, i);
+                dialogInterface.dismiss();
+            }
+        });
+        alertBuilder.setCancelable(true);
+
+        alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
+
 }

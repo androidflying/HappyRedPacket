@@ -12,7 +12,6 @@ import com.happy.libs.base.BaseActivity;
 import com.happy.libs.util.ActivityUtils;
 import com.happy.libs.util.ToastUtils;
 import com.happy.packets.R;
-import com.happy.packets.helper.DialogHelper;
 import com.happy.packets.widget.AdvancedWebView;
 
 public class WebActivity extends BaseActivity implements AdvancedWebView.Listener {
@@ -96,13 +95,13 @@ public class WebActivity extends BaseActivity implements AdvancedWebView.Listene
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
         mWebView.setVisibility(View.INVISIBLE);
-        DialogHelper.showLoading();
+        showLoading();
     }
 
     @Override
     public void onPageFinished(String url) {
         mWebView.setVisibility(View.VISIBLE);
-        DialogHelper.missLoading();
+        missLoading();
     }
 
     @Override
