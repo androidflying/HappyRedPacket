@@ -31,7 +31,6 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void doBusiness() {
         NotificationHelper.sendNotificationToAliPay();
-        //从服务器获取各个APP对应的版本号和监听需要的文字内容
 
         handler.postDelayed(new Runnable() {
             @Override

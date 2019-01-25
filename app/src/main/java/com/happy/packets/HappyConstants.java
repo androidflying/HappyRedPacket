@@ -11,6 +11,7 @@ public class HappyConstants {
     public static final String URL_ALIPAY = "http://www.tianfeifei.com/redpacket/alipay.html";
     public static final String URL_HELP = "http://www.tianfeifei.com/redpacket/help.html";
     public static final String URL_RULES = "http://www.tianfeifei.com/redpacket/rules.html";
+    public static final String URL_FEEDBACK = "https://support.qq.com/product/53640";
 
     public static final String SP_SERVICE_STATE = "sp_service_state";
     public static final String SP_CURRENT_ACTIVITY = "sp_current_activity";

@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.happy.libs.base.BaseActivity;
 import com.happy.libs.constant.PackagesConstants;
@@ -19,6 +22,7 @@ import com.happy.packets.R;
 import com.happy.packets.helper.AccessibilityHelper;
 import com.happy.packets.helper.ConfigHelper;
 import com.happy.packets.helper.NotificationHelper;
+import com.happy.packets.widget.FilterView;
 import com.happy.packets.widget.SuperTextView;
 
 public class SettingActivity extends BaseActivity implements SuperTextView.OnSuperTextViewClickListener {
@@ -223,13 +227,12 @@ public class SettingActivity extends BaseActivity implements SuperTextView.OnSup
                     showDelayChoice(superTextView);
                 }
             }
-        })
-                .setSwitchCheckedChangeListener(new SuperTextView.OnSwitchCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        SPUtils.getInstance().put(HappyConstants.SP_KEY_DELAY, isChecked);
-                    }
-                });
+        }).setSwitchCheckedChangeListener(new SuperTextView.OnSwitchCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SPUtils.getInstance().put(HappyConstants.SP_KEY_DELAY, isChecked);
+            }
+        });
         switch_reply.setOnSuperTextViewClickListener(this)
                 .setSwitchCheckedChangeListener(new SuperTextView.OnSwitchCheckedChangeListener() {
                     @Override
@@ -237,13 +240,22 @@ public class SettingActivity extends BaseActivity implements SuperTextView.OnSup
                         SPUtils.getInstance().put(HappyConstants.SP_KEY_REPLY, isChecked);
                     }
                 });
-        switch_filter.setOnSuperTextViewClickListener(this)
-                .setSwitchCheckedChangeListener(new SuperTextView.OnSwitchCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        SPUtils.getInstance().put(HappyConstants.SP_KEY_FILTER, isChecked);
-                    }
-                });
+        switch_filter.setOnSuperTextViewClickListener(new SuperTextView.OnSuperTextViewClickListener() {
+            @Override
+            public void onClickListener(SuperTextView superTextView) {
+                if (superTextView.getSwitchIsChecked()) {
+                    superTextView.setSwitchIsChecked(false);
+                } else {
+                    showFilterChoice(superTextView);
+                }
+            }
+        }).setSwitchCheckedChangeListener(new SuperTextView.OnSwitchCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                SPUtils.getInstance().put(HappyConstants.SP_KEY_FILTER, isChecked);
+            }
+        });
     }
 
 
@@ -307,6 +319,37 @@ public class SettingActivity extends BaseActivity implements SuperTextView.OnSup
             }
         });
         alertBuilder.setCancelable(true);
+
+        alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
+
+
+    /**
+     * 过滤选择框
+     *
+     * @param superTextView
+     */
+    private void showFilterChoice(final SuperTextView superTextView) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setTitle("添加需要过滤的关键词");
+        alertBuilder.setCancelable(true);
+        final FilterView view = new FilterView(this);
+        alertBuilder.setView(view);
+        alertBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                superTextView.setSwitchIsChecked(true);
+                SPUtils.getInstance().put(HappyConstants.SP_FILTER_CONTENTS, view.getContents());
+                dialog.dismiss();
+            }
+        });
+        alertBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
 
         alertDialog = alertBuilder.create();
         alertDialog.show();

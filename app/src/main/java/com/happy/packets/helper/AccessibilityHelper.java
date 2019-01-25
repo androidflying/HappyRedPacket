@@ -228,27 +228,31 @@ public class AccessibilityHelper {
         AccessibilityNodeInfo completed = getLastNodeByTag(nodeInfo, "已被领完");
         AccessibilityNodeInfo expired = getLastNodeByTag(nodeInfo, "已过期");
         Set<AccessibilityNodeInfo> filterSet = new HashSet<>();
-        Set<String> filters = SPUtils.getInstance().getStringSet(HappyConstants.SP_FILTER_CONTENTS);
+        String filters = SPUtils.getInstance().getString(HappyConstants.SP_FILTER_CONTENTS);
         if (ConfigHelper.getFilter()) {
-            for (String content : filters) {
+            for (String content : filters.split(" ")) {
                 filterSet.add(getLastNodeByTag(nodeInfo, content));
             }
         }
         if (nodeInfo != null && received == null && completed == null && expired == null && filterSet.isEmpty()) {
-            Rect rect = new Rect();
-            nodeInfo.getBoundsInScreen(rect);
             //打开自己发的红包
-            //判断nodeInfo的Bounds是否在右边
             if (ConfigHelper.getSelf()) {
                 return true;
             } else {
-                if (rect.left > ScreenUtils.getScreenWidth() / 3) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return !isOwn(nodeInfo);
             }
 
+        } else {
+            return false;
+        }
+    }
+
+
+    private static boolean isOwn(AccessibilityNodeInfo nodeInfo) {
+        Rect rect = new Rect();
+        nodeInfo.getBoundsInScreen(rect);
+        if (rect.left > ScreenUtils.getScreenWidth() / 3) {
+            return true;
         } else {
             return false;
         }

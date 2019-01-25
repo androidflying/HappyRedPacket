@@ -3,16 +3,26 @@ package com.happy.packets.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
 import com.happy.libs.base.BaseActivity;
+import com.happy.libs.constant.PermissionConstants;
 import com.happy.libs.util.ActivityUtils;
+import com.happy.libs.util.AppUtils;
+import com.happy.libs.util.DeviceUtils;
+import com.happy.libs.util.PermissionUtils;
+import com.happy.libs.util.PhoneUtils;
 import com.happy.libs.util.ToastUtils;
+import com.happy.packets.HappyConstants;
 import com.happy.packets.R;
 import com.happy.packets.widget.AdvancedWebView;
+
+import java.util.List;
 
 public class WebActivity extends BaseActivity implements AdvancedWebView.Listener {
 
@@ -34,6 +44,7 @@ public class WebActivity extends BaseActivity implements AdvancedWebView.Listene
         return R.layout.activity_web;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void initView(Bundle savedInstanceState, View contentView) {
         mWebView = findViewById(R.id.webView);
@@ -44,8 +55,22 @@ public class WebActivity extends BaseActivity implements AdvancedWebView.Listene
         mWebView.setMixedContentAllowed(true);
         mWebView.setCookiesEnabled(true);
         mWebView.setThirdPartyCookiesEnabled(true);
+        mWebView.addPermittedHostname("weixin://");
         tv_title.setText(title);
-        mWebView.loadUrl(url);
+        if (url.equals(HappyConstants.URL_FEEDBACK)) {
+            String openid = PhoneUtils.getDeviceId();
+            String nickname = "猎手用户(我)";
+            String head = "https://support.qq.com/data/53640/2019/0125/1ee875c303f9aaf926b7b3407bb5b1c0.png";
+            String clientInfo = DeviceUtils.getSDKVersionName() + "|" + DeviceUtils.getManufacturer() + "|" + DeviceUtils.getModel();
+            String clientVersion = AppUtils.getAppVersionName();
+            String customInfo = "root["+DeviceUtils.isDeviceRooted()+"]";
+            String postData = "clientInfo=" + clientInfo + "&avatar=" + head + "&openid=" + openid
+                    + "&nickname=" + nickname + "&clientVersion=" + clientVersion
+                    +"&customInfo="+customInfo;
+            mWebView.postUrl(url, postData.getBytes());
+        } else {
+            mWebView.loadUrl(url);
+        }
     }
 
     @Override
@@ -106,7 +131,7 @@ public class WebActivity extends BaseActivity implements AdvancedWebView.Listene
 
     @Override
     public void onPageError(int errorCode, String description, String failingUrl) {
-        ToastUtils.showShort("onPageError(errorCode = " + errorCode + ",  description = " + description + ",  failingUrl = " + failingUrl + ")");
+        ToastUtils.showLong("onPageError(errorCode = " + errorCode + ",  description = " + description + ",  failingUrl = " + failingUrl + ")");
     }
 
     @Override
@@ -116,7 +141,14 @@ public class WebActivity extends BaseActivity implements AdvancedWebView.Listene
 
     @Override
     public void onExternalPageRequest(String url) {
-        ToastUtils.showShort("onExternalPageRequest(url = " + url + ")");
+        try {
+            if (url.startsWith("weixin://")) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                ActivityUtils.startActivity(intent);
+            }
+        } catch (Exception e) {
+            ToastUtils.showLong(e.toString());
+        }
     }
 
 
