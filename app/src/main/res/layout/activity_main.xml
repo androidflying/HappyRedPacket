@@ -25,27 +25,24 @@
             android:id="@+id/ll_WeChat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/fab_margin"
-            android:paddingTop="@dimen/fab_margin"
             android:paddingRight="@dimen/fab_margin"
+            android:paddingBottom="@dimen/fab_margin"
             android:visibility="gone">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="微信红包"
-                android:textColor="@android:color/white"
-                android:textSize="24dp" />
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="@dimen/fab_margin"
+              android:src="@mipmap/logo_weixin" />
 
             <TextView
                 android:id="@+id/tv_WeChat_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="共抢得 120.08 元"
-
                 android:textColor="@android:color/white"
                 android:textSize="24dp" />
         </LinearLayout>
@@ -54,21 +51,78 @@
             android:id="@+id/ll_DingDing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:padding="@dimen/fab_margin"
+            android:paddingLeft="@dimen/fab_margin"
+            android:paddingRight="@dimen/fab_margin"
+            android:paddingBottom="@dimen/fab_margin"
             android:visibility="gone">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="钉钉红包"
-                android:textColor="@android:color/white"
-                android:textSize="24dp" />
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:src="@mipmap/logo_dingding" />
+
 
             <TextView
                 android:id="@+id/tv_DingDing_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="共抢得 390.08 元"
+                android:textColor="@android:color/white"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_QQ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/fab_margin"
+            android:paddingRight="@dimen/fab_margin"
+            android:paddingBottom="@dimen/fab_margin"
+            android:visibility="gone">
+
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:src="@mipmap/logo_qq" />
+
+
+            <TextView
+                android:id="@+id/tv_QQ_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="共抢得 390.08 元"
+                android:textColor="@android:color/white"
+                android:textSize="24dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_Work"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/fab_margin"
+            android:paddingRight="@dimen/fab_margin"
+            android:paddingBottom="@dimen/fab_margin"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:src="@mipmap/logo_work" />
+
+
+            <TextView
+                android:id="@+id/tv_work_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="共抢得 390.08 元"

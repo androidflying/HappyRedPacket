@@ -31,8 +31,12 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
     private SuperTextView ll_state_off;
     private LinearLayout ll_WeChat;
     private LinearLayout ll_DingDing;
+    private LinearLayout ll_QQ;
+    private LinearLayout ll_Work;
     private TextView tv_WeChat_money;
     private TextView tv_DingDing_money;
+    private TextView tv_QQ_money;
+    private TextView tv_Work_money;
 
     @Override
     public void initData(@NonNull Bundle bundle) {
@@ -51,6 +55,12 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
         ll_DingDing = findViewById(R.id.ll_DingDing);
         tv_WeChat_money = findViewById(R.id.tv_WeChat_money);
         tv_DingDing_money = findViewById(R.id.tv_DingDing_money);
+
+        ll_QQ = findViewById(R.id.ll_QQ);
+        ll_Work = findViewById(R.id.ll_Work);
+        tv_QQ_money = findViewById(R.id.tv_QQ_money);
+        tv_Work_money = findViewById(R.id.tv_work_money);
+
 
         ll_state_off.setOnClickListener(this);
         findViewById(R.id.ll_Lucky).setOnClickListener(this);
@@ -144,6 +154,16 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
             } else {
                 ll_DingDing.setVisibility(View.GONE);
             }
+            if (AppUtils.isAppInstalled(PackagesConstants.QQ)) {
+                ll_QQ.setVisibility(View.VISIBLE);
+            } else {
+                ll_QQ.setVisibility(View.GONE);
+            }
+            if (AppUtils.isAppInstalled(PackagesConstants.WORKWEIXIN)) {
+                ll_Work.setVisibility(View.VISIBLE);
+            } else {
+                ll_Work.setVisibility(View.GONE);
+            }
         } else {
             if (ConfigHelper.getNotification()) {
                 NotificationHelper.sendNotificationToOpenAccessibilittyService();
@@ -151,6 +171,8 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
             ll_state_off.setVisibility(View.VISIBLE);
             ll_WeChat.setVisibility(View.GONE);
             ll_DingDing.setVisibility(View.GONE);
+            ll_QQ.setVisibility(View.GONE);
+            ll_Work.setVisibility(View.GONE);
         }
     }
 
@@ -169,24 +191,27 @@ public class MainActivity extends BaseActivity implements AccessibilityManager.A
         for (RedPackage redPackage : allRedPackage) {
             switch (redPackage.getChannel()) {
                 case HappyConstants.TAG_WEIXIN:
-                    total_wx+=redPackage.getMoney();
+                    total_wx += redPackage.getMoney();
                     break;
                 case HappyConstants.TAG_DINGDING:
-                    total_dd+=redPackage.getMoney();
+                    total_dd += redPackage.getMoney();
                     break;
                 case HappyConstants.TAG_QQ:
-                    total_qq+=redPackage.getMoney();
+                    total_qq += redPackage.getMoney();
                     break;
                 case HappyConstants.TAG_WORK_WEIXIN:
-                    total_ww+=redPackage.getMoney();
+                    total_ww += redPackage.getMoney();
                     break;
                 default:
-                    total_o+=redPackage.getMoney();
+                    total_o += redPackage.getMoney();
             }
         }
 
-        tv_WeChat_money.setText("共抢得 " + new DecimalFormat("#0.00").format(total_wx) + " 元");
-        tv_DingDing_money.setText("共抢得 " + new DecimalFormat("#0.00").format(total_dd) + " 元");
+        tv_WeChat_money.setText("累计 " + new DecimalFormat("#0.00").format(total_wx) + " 元");
+        tv_DingDing_money.setText("累计 " + new DecimalFormat("#0.00").format(total_dd) + " 元");
+        tv_QQ_money.setText("累计 " + new DecimalFormat("#0.00").format(total_wx) + " 元");
+        tv_Work_money.setText("累计 " + new DecimalFormat("#0.00").format(total_dd) + " 元");
+
     }
 
     @Override
